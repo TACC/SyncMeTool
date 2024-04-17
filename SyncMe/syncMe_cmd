@@ -1,0 +1,156 @@
+#!/usr/bin/env lua
+-- -*- lua -*-
+_G._DEBUG   = false
+local posix = require("posix")
+
+local s_optionT = {}
+
+function masterTbl()
+   return s_optionT
+end
+
+function splitFileName(path)
+   local d, f
+   local i,j = path:find(".*/")
+   if (i == nil) then
+      d = './'
+      f = path
+   else
+      d = path:sub(1,j)
+      f = path:sub(j+1,-1)
+   end
+   return d, f
+end
+
+local execDir = splitFileName(arg[0])
+package.path=execDir .. '?.lua;' ..
+             execDir .. '../modules/?.lua;' ..
+             package.path
+
+
+require("strict")
+require("string_utils")
+
+require("capture")
+require("findVCDir")
+local CmdLineOptions = require("CmdLineOptions")
+local ProcessOneDir  = require("ProcessOneDir")
+local dbg            = require("Dbg"):dbg()
+
+local cmdA = { "st", "status", "up", "update", "pull" } 
+
+
+local remove = table.remove
+local insert = table.insert
+
+function main()
+   local count = countVerbosityLevel()
+   if (count > 0) then
+      dbg:activateDebug(count)
+   end
+
+   dbg.start{"main"}
+   
+   CmdLineOptions:options()
+
+   local masterTbl     = masterTbl()
+   local pargs         = masterTbl.pargs
+   masterTbl.execDir   = execDir
+
+   --------------------------------------------------------
+   -- determine svn command from first positional argument
+
+   -- If first argument is a "st" or "up" then use that
+   -- otherwise assume the command is "st"
+
+
+   local cmd = masterTbl.vc_cmd
+   
+   if (cmd == nil) then
+      if (#pargs > 0) then
+	 local found = false
+	 local first = pargs[1]
+	 cmd = first:lower()
+	 remove(pargs, 1)
+	 for _,v in ipairs(cmdA) do
+	    if (v == cmd) then
+	       found = true
+	       break
+	    end
+	 end
+	 if (not found) then
+	    insert(pargs, 1, first)
+	 end
+      end
+   end
+
+   ----------------------------------------
+   -- Form process object.
+
+   local processOneDir = ProcessOneDir:processOneDir(cmd or "st")
+
+
+   ----------------------------------------
+   -- Form a unique list of directories
+
+   local dirT    = {}
+   if (masterTbl.dirlist:len() > 0) then
+      insert(pargs, 1, masterTbl.dirlist)
+   end
+
+   local i = 0
+   for _,v in ipairs(pargs) do
+      if (v:sub(-1,-1) == ":") then
+	 v = v:sub(1,-2)
+      end
+
+      for dir in v:split(":") do
+	 if (dirT[dir] == nil) then
+	    i = i + 1
+	    dirT[dir] = i
+	 end
+      end
+   end
+
+   local dirA = {}
+   for dir,i in pairs(dirT) do
+      dirA[i] = dir
+   end
+
+   if (#dirA ~= i) then
+      print("dirA has the wrong size")
+      exit(1)
+   end
+
+   ----------------------------------------
+   -- Process each directory
+
+   for _,dir in ipairs(dirA) do
+      local dirT = {}
+      findVCDir(dir, dirT)
+      for v in pairs(dirT) do
+         dbg.print{"  Processing: ",v,"\n"}
+	 processOneDir:process(v)
+      end
+   end
+
+   ----------------------------------------
+   -- Report results
+   processOneDir:report()
+
+   dbg.fini()
+end
+
+function countVerbosityLevel()
+   local i = 0
+   for _,v in ipairs(arg) do
+      if (v == "-v" or v == "--verbosity") then
+	 i = i + 1
+      end
+   end
+
+   return i
+end
+   
+
+main()

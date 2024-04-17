@@ -1,0 +1,26 @@
+#!/bin/bash
+# -*- shell-script -*-
+SCRIPT_NAME="${BASH_SOURCE[0]:-${(%):-%x}}"
+SCRIPT_DIR=${SCRIPT_NAME%/*}
+
+echo "SCRIPT_NAME: $SCRIPT_NAME"
+echo "SCRIPT_DIR:  $SCRIPT_DIR"
+
+if [ "$SCRIPT_DIR" = "." ]; then
+  $SCRIPT_DIR=$PWD
+fi  
+
+export PATH=$SCRIPT_DIR/../SyncMe:$PATH
+
+if [ -n "$SyncDirPath" ]; then
+  path="--list $SyncDirPath"
+fi
+
+syncMe_cmd $path "$@" 
+
+
+
+
+
+
+     
