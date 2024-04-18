@@ -47,6 +47,23 @@ Or
 
     % syncMe pull
    
+## Typical usage
+
+At the start of the day, you can run:
+
+    % syncMe st
+    % syncMe pull
+    
+to make sure that all local repos are up-to-date.
+
+
+When leaving for the day, you should run:
+
+    % syncMe st
+    
+to make sure that all local repos are up-to-date.  You'll have to commit any
+changes or push to ``origin`` manually.
+
 ## Important output reported last
 
 The syncMe command tries to remove as much unnecessary output from
