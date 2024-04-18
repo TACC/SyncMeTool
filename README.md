@@ -1,17 +1,19 @@
 # SyncMeTool 
-The SyncMeTool package contains the program ``syncMe``.  This is a
-combination of a shell script and a lua program.
+The SyncMeTool package contains the program ``syncMe``.  The purpose
+is to loop over git repos and sync them with the remote repos. This
+allows you to easily check the status of all repos and pull from the
+remote repos with one command for each rather than manually cd'ing to
+each repo and checking the status or pulling from ``origin``.
+This command is a combination of a shell script and a lua program.
 
-The purpose of ``syncMe`` is to loop over git repos and sync them with
-the remote repos.
 
 ## To install
 
-   1. Check out this repo
+   1. Clone this repo.
    
    2. Add the repo's bin directory to your path.  For example if you
       check out this repo into ~/w/SyncMeTool then add
-      ~/w/SyncMeTool/bin to your path
+      ~/w/SyncMeTool/bin to your path.
       
       
 ## To use
