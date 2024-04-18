@@ -1,4 +1,4 @@
-* SyncMeTool 
+# SyncMeTool 
 The SyncMeTool package contains the program syncMe.  This is a
 combination of a shell script and a lua program.
 
