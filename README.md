@@ -16,7 +16,7 @@ To install:
       
 To use:
 
-The first step is to create an env. var called SyncDirPath that
+The first step is to create an env. var called ``SyncDirPath`` that
 contains a list of directories relative to $HOME that contain git
 repositories. Supposing you have git repos in ~/c ~/g and several
 repos in the ~/w directory then add the following to your startup
@@ -27,7 +27,8 @@ files (e.g.: ~/.bashrc or ~/.zshrc)
 This will cause syncMe to look at the repos in ~/c, ~/g and say
 ~/w/lmod/main, ~/w/lmod/testing, ~/w/xalt/main.  In other words 
 each directory listed will be recursively searched until it finds a
-file or directory name .git.
+file or directory name ``git``.  The file name support for ``.git`` is
+to support git worktrees.
 
 
 Then to check the status of your git repos you execute:
