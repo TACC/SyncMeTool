@@ -1,5 +1,5 @@
 # SyncMeTool 
-The SyncMeTool package contains the program syncMe.  This is a
+The SyncMeTool package contains the program ``syncMe``.  This is a
 combination of a shell script and a lua program.
 
 The purpose of ``syncMe`` is to loop over git repos and sync them with
