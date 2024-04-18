@@ -5,7 +5,7 @@ combination of a shell script and a lua program.
 The purpose of ``syncMe`` is to loop over git repos and sync them with
 the remote repos.
 
-To install:
+## To install
 
    1. Check out this repo
    
@@ -14,7 +14,7 @@ To install:
       ~/w/SyncMeTool/bin to your path
       
       
-To use:
+## To use
 
 The first step is to create an env. var called ``SyncDirPath`` that
 contains a list of directories relative to $HOME that contain git
