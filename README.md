@@ -35,23 +35,27 @@ to support git worktrees.
 
 Then to check the status of your git repos you execute:
 
-    % syncMe st
+    % syncMe status
 
 to get status.
 
 To update or pull from your repos you can do:
 
-    % syncMe up
+    % syncMe update
 
 Or
 
     % syncMe pull
    
+Note that ``status`` can be abbreviated to ``st``  and ``pull`` can be
+shorten to ``up``.
+
+
 ## Typical usage
 
 At the start of the day, you can run:
 
-    % syncMe st
+    % syncMe status
     % syncMe pull
     
 to make sure that all local repos are up-to-date.
@@ -59,7 +63,7 @@ to make sure that all local repos are up-to-date.
 
 When leaving for the day, you should run:
 
-    % syncMe st
+    % syncMe status
     
 to make sure that all local repos are up-to-date.  You'll have to commit any
 changes or push to ``origin`` manually.
@@ -72,12 +76,12 @@ means that changes to a repo will appear at the end.  So with
 SyncDirPath=c:g:.up and there is a change in ~/g, the output would
 be:
 
-    % syncMe up
+    % syncMe pull
    
-    [up]: On branch: main,   in directory: c
-    [up]: On branch: main,   in directory: .up
+    [pull]: On branch: main,   in directory: c
+    [pull]: On branch: main,   in directory: .up
 
-    [up]: On branch: main,   in directory: g
+    [pull]: On branch: main,   in directory: g
        f709426..18ef6e4  main       -> origin/main
     Updating f709426..18ef6e4
     Fast-forward
