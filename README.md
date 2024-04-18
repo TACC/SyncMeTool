@@ -30,13 +30,13 @@ each directory listed will be recursively searched until it finds a
 file or directory name .git.
 
 
-Then to check the status of your git repos you execute::
+Then to check the status of your git repos you execute:
 
     % syncMe st
 
 to get status.
 
-To update or pull from your repos you can do::
+To update or pull from your repos you can do:
 
     % syncMe up
 
@@ -50,7 +50,7 @@ The syncMe command tries to remove as much unnecessary output from
 git.  It also saves what it decides it important until the end.  This
 means that changes to a repo will appear at the end.  So with
 SyncDirPath=c:g:.up and there is a change in ~/g, the output would
-be::
+be:
 
     % syncMe up
    
@@ -73,7 +73,7 @@ directory in $SyncDirPath.
 Sometimes syncMe has trouble connecting to the remote server and the
 important output will be hidden away in an internal buffer.  If things
 do not proceed as expected then you can add the "-v" option to see the
-internal communications::
+internal communications:
 
     % syncMe -v up
 
