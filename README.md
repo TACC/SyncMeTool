@@ -72,8 +72,9 @@ When leaving for the day, you should run:
 
     % syncMe status
     
-to make sure that all local repos are up-to-date.  You'll have to commit any
-changes or push to ``origin`` manually.
+to make sure that all local repos are up-to-date and that there are no
+uncommited files.  You'll have to commit any changes or push to
+``origin`` manually. 
 
 ## Important output reported last
 
