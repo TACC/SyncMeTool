@@ -11,7 +11,14 @@ if [ -n "$SyncDirPath" ]; then
   myPath="--list $SyncDirPath"
 fi
 
-syncMe_cmd $myPath "$@" 
+if [ $1 = all ]; then
+  syncMe_cmd $myPath st
+  echo
+  echo
+  syncMe_cmd $myPath up
+else
+  syncMe_cmd $myPath "$@"
+fi
 
 
 
