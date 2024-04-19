@@ -108,11 +108,11 @@ end
 function M.report(self)
    local tbl    = self.tbl
    local vc_cmd = self.vc_cmd
-   local status = true
+   local status = 0
 
    if (#tbl > 0 and self.addCR) then
       stdout:write("\n")
-      status = false
+      status = -1
    end
    
    for _,v in ipairs(tbl) do
