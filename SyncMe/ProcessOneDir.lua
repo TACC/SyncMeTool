@@ -106,11 +106,13 @@ function M.process(self,dir)
 end
 
 function M.report(self)
-   local tbl     = self.tbl
+   local tbl    = self.tbl
    local vc_cmd = self.vc_cmd
+   local status = true
 
    if (#tbl > 0 and self.addCR) then
       stdout:write("\n")
+      status = false
    end
    
    for _,v in ipairs(tbl) do
@@ -120,6 +122,7 @@ function M.report(self)
       stdout:write("[",vc_cmd,"]: On branch: ", branch,",\t in directory: ",display,"\n")
       stdout:write(msg,"\n\n")
    end
+   return status
 end
 
 

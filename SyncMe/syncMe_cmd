@@ -136,9 +136,10 @@ function main()
 
    ----------------------------------------
    -- Report results
-   processOneDir:report()
+   local status = processOneDir:report()
 
    dbg.fini()
+   os.exit(status)
 end
 
 function countVerbosityLevel()
