@@ -9,9 +9,9 @@ all:
 
 gittag:
         ifneq ($(TAG),)
-	  @git status -s > /tmp/git_st_$$$$;                                                \
+	  @git status -s > /tmp/git_st_$$$$                                               ; \
 	  if [ -s /tmp/git_st_$$$$ ]; then                                                  \
-	    echo "All files not checked in => try again";                                   \
+	    echo "All files not checked in => try again"                                  ; \
 	  else                                                                              \
 	    $(RM)                                                           $(VERSION_SRC); \
 	    $(BUILD_V_src) "$(GIT_BRANCH)" "$(TAG)" "$(TAG)" "$(VDATE)"  >  $(VERSION_SRC); \
@@ -27,14 +27,14 @@ gittag:
         endif                                                                               
 
 world_update:
-	@git status -s > /tmp/git_st_$$$$;                                             \
-	if [ -s /tmp/git_st_$$$$ ]; then                                               \
-	    echo "All files not checked in => try again";                              \
-	elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then                  \
-	    echo "configure is out of date => try again";                              \
-	else                                                                           \
-	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`;         \
-	    git push        github $$branchName;                                       \
-	    git push --tags github $$branchName;                                       \
-	fi;                                                                            \
-	rm -f /tmp/git_st_$$$$;
+	@git status -s > /tmp/git_st_$$$$                                                 ; \
+	if [ -s /tmp/git_st_$$$$ ]; then                                                    \
+	    echo "All files not checked in => try again"                                  ; \
+	elif [ $(srcdir)/configure -ot $(srcdir)/configure.ac ]; then                       \
+	    echo "configure is out of date => try again"                                  ; \
+	else                                                                                \
+	    branchName=`git status | head -n 1 | sed 's/^[# ]*On branch //g'`             ; \
+	    git push        github $$branchName                                           ; \
+	    git push --tags github $$branchName                                           ; \
+	fi                                                                                ; \
+	rm -f /tmp/git_st_$$$$                                                            ;
