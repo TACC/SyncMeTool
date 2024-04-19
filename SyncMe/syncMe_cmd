@@ -35,13 +35,22 @@ require("capture")
 require("findVCDir")
 local CmdLineOptions = require("CmdLineOptions")
 local ProcessOneDir  = require("ProcessOneDir")
+local Version        = require("Version")
+local concatTbl      = table.concat
 local dbg            = require("Dbg"):dbg()
+local insert         = table.insert
+local remove         = table.remove
 
 local cmdA = { "st", "status", "up", "update", "pull" } 
 
 
-local remove = table.remove
-local insert = table.insert
+
+function version()
+   local a = {}
+   a[#a+1] = "syncMe: A directory git repo sync tool " .. Version.name().."\n"
+   a[#a+1] = "    by Robert McLay mclay@tacc.utexas.edu\n\n"
+   return concatTbl(a,"")
+end
 
 function main()
    local count = countVerbosityLevel()
@@ -56,6 +65,11 @@ function main()
    local masterTbl     = masterTbl()
    local pargs         = masterTbl.pargs
    masterTbl.execDir   = execDir
+
+   if (masterTbl.version) then
+      io.stdout:write(version())
+      os.exit(0)
+   end
 
    --------------------------------------------------------
    -- determine svn command from first positional argument

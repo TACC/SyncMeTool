@@ -19,10 +19,3 @@ if [ $1 = all ]; then
 else
   syncMe_cmd $myPath "$@"
 fi
-
-
-
-
-
-
-     

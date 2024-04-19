@@ -38,7 +38,13 @@ function M.options(self)
    local cmdlineParser = Optiks:new{usage=usage, version=format("syncMe %s",version())}
 
    cmdlineParser:add_option{ 
-      name   = {'-v','--verbose'},
+      name   = {'-v','--version'},
+      dest   = 'version',
+      action = 'store_true',
+   }
+
+   cmdlineParser:add_option{ 
+      name   = {'-D','--debug'},
       dest   = 'verbosityLevel',
       action = 'count',
    }

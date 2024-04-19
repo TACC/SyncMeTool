@@ -47,7 +47,7 @@ Or
 
     % syncMe pull
    
-Note that ``status`` can be abbreviated to ``st``  and ``pull`` can be
+Note that ``status`` can be abbreviated to ``st``  and ``pull`` or ``update`` can be
 shorten to ``up``.
 
 
@@ -57,8 +57,15 @@ At the start of the day, you can run:
 
     % syncMe status
     % syncMe pull
+
+to make sure that all local repos are up-to-date. The above can be
+abbreviated to: 
+
+    % syncMe all
     
-to make sure that all local repos are up-to-date.
+which will run ``syncMe status`` and if that completes successfully then
+``syncMe pull`` is run.
+
 
 
 When leaving for the day, you should run:
@@ -96,10 +103,10 @@ directory in $SyncDirPath.
 
 Sometimes syncMe has trouble connecting to the remote server and the
 important output will be hidden away in an internal buffer.  If things
-do not proceed as expected then you can add the "-v" option to see the
+do not proceed as expected then you can add the "-D" option to see the
 internal communications:
 
-    % syncMe -v up
+    % syncMe -D up
 
 
 
