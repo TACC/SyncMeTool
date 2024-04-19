@@ -1,6 +1,7 @@
 DATE_cmd    := date
 VDATE       := $(shell $(DATE_cmd) +'%F %H:%M %:z')
 VERSION_SRC := ./SyncMe/Version.lua
+BUILD_V_src := lua ./proj_mgmt/buildVersion_src
 
 
 gittag:
