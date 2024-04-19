@@ -63,8 +63,8 @@ abbreviated to:
 
     % syncMe all
     
-which will run ``syncMe status`` and if that completes successfully then
-``syncMe pull`` is run.
+which will run ``syncMe status`` and if that completes with no commits
+required then ``syncMe pull`` is run.
 
 
 
