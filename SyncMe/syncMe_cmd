@@ -68,6 +68,7 @@ function main()
 
    if (masterTbl.version) then
       io.stdout:write(version())
+      dbg.fini("main")
       os.exit(0)
    end
 
@@ -159,7 +160,7 @@ end
 function countVerbosityLevel()
    local i = 0
    for _,v in ipairs(arg) do
-      if (v == "-v" or v == "--verbosity") then
+      if (v == "-D" or v == "--debug") then
 	 i = i + 1
       end
    end
