@@ -12,9 +12,9 @@ if [ -n "$SyncDirPath" ]; then
 fi
 
 if [ $1 = all ]; then
-  syncMe_cmd $myPath st
-  echo
-  echo
+  syncMe_cmd $myPath st && \
+  echo                  && \
+  echo                  && \
   syncMe_cmd $myPath up
 else
   syncMe_cmd $myPath "$@"
