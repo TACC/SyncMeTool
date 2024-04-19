@@ -26,7 +26,7 @@ files (e.g.: ~/.bashrc or ~/.zshrc)
 
     export SyncDirPath=c:g:w
    
-This will cause syncMe to look at the repos in ~/c, ~/g and say
+This will cause ``syncMe`` to look at the repos in ~/c, ~/g and say
 ~/w/lmod/main, ~/w/lmod/testing, ~/w/xalt/main.  In other words 
 each directory listed will be recursively searched until it finds a
 file or directory name ``git``.  The file name support for ``.git`` is
