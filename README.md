@@ -37,7 +37,8 @@ Then to check the status of your git repos you execute:
 
     % syncMe status
 
-to get status.
+to get status by running ``git status`` in each git repository as
+specified by ``$SyncDirPath``
 
 To update or pull from your repos you can do:
 
@@ -47,6 +48,9 @@ Or
 
     % syncMe pull
    
+This runs ``git pull`` in each git repository.
+
+
 Note that ``status`` can be abbreviated to ``st``  and ``pull`` or ``update`` can be
 shorten to ``up``.
 
