@@ -9,12 +9,20 @@ This command is a combination of a shell script and a lua program.
 
 ## To install
 
-   1. Clone this repo.
+   1. Install lua and luaposix on your computer if they are not already
+      there.  On linux system they can be installed with your package
+      manager.  On a Mac, it a little more complicated. Please install
+      lua and luarocks via brew:
+
+         % brew install lua
+         % brew install luarocks
+         % luarocks install luaposix
+       
+   2. Clone this repo.
    
-   2. Add the repo's bin directory to your path.  For example if you
+   3. Add the repo's bin directory to your path.  For example if you
       check out this repo into ~/w/SyncMeTool then add
       ~/w/SyncMeTool/bin to your path.
-      
       
 ## To use
 
