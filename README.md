@@ -12,7 +12,7 @@ This command is a combination of a shell script and a lua program.
    1. Install lua and luaposix on your computer if they are not already
       there.  On linux system they can be installed with your package
       manager.  On a Mac, it a little more complicated. Please install
-      lua and luarocks via brew:
+      lua and luarocks via brew.  Then use luarocks to install luaposix:
 
          % brew install lua
          % brew install luarocks
