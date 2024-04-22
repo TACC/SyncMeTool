@@ -15,7 +15,9 @@ This command is a combination of a shell script and a lua program.
       lua and luarocks via brew.  Then use luarocks to install luaposix:
 
          % brew install lua
+         
          % brew install luarocks
+         
          % luarocks install luaposix
        
    2. Clone this repo.
