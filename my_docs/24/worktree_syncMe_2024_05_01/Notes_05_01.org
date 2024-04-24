@@ -1,0 +1,10 @@
+Ideas for git-worktree & SyncMeTool
+
+* I like to find ways to improve my workflow and let software remember things so I don't have to
+* I have 34 git repos on my TACC laptop and 22 git repos on Frontera
+* For example:
+** I have all my dotfiles and common scripts in a repo (.up)
+** My g repo has common hello world programs in C, C++, F90, and MPI versions
+** And of course Lmod and XALT repos
+* I develop on my Laptop and test on Frontera, LS6 and S3
+* I need a way to keep all my repos up-to-date
