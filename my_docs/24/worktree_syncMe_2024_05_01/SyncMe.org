@@ -1,0 +1,37 @@
+SyncMeTool: If you have more that one git repo to manage.  This tool
+could be a help
+
+* Motivation:
+** I like to find ways to improve my workflow and let software remember things so I don't have to
+** I have 28 git repos on my TACC laptop and 22 git repos on Frontera
+** For example:
+*** I have all my dotfiles and common scripts in a repo (.up)
+*** My g repo has common hello world programs in C, C++, F90, and MPI versions
+*** And of course Lmod and XALT repos
+** I develop on my Laptop and test on Frontera, LS6 and S3
+** I need a way to keep all my repos up-to-date
+** I created a Lua based tool called syncMe which can be found at:
+   github.com/TACC/SyncMeTool
+** It contains all the lua scripts need to run "syncMe"
+* Install:
+** To install: Follow the README.md found at    github.com/TACC/SyncMeTool
+** TLDR:
+*** Install lua and luaposix if necessary
+*** clone repo
+*** Put SyhcMeTool/bin in your path
+* Usage:
+** Set $SyncDirPath to a list of repos in a colon separated list
+*** paths w/o leading "/" are assumed to be in $HOME
+** syncMe status (or syncMe st)
+*** Loops over directories found in $SyncDirPath by search for a .git dir/file
+*** Runs git status in those directories
+*** Removes "unnecessary" output
+*** Sets error status on exit if there is a repo that is not up-to-date
+** syncMe pull (or syncMe up)
+*** Loops over directories found in $SyncDirPath by search for a .git dir/file
+*** run git pull in those directories
+** syncMe loops over directories in order
+*** However any non-ignored output is saved to the end
+** syncMe -D ...
+*** will show the buffered output
+* Show it in action:

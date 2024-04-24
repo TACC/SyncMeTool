@@ -1,0 +1,18 @@
+These are notes for git worktree talk
+
+Git worktrees: A way to manage multiple branches
+
+* Motivation:
+** I have (too-)many repos
+** Most only have the "main" branch
+** Two projects (Lmod and XALT) have more than one active branch
+** I find switching between main and testing branches in the same directory tree usually unhelpful.
+** I want both branches to be in their own directory tree.
+** I used to have multiple clones littered over my $HOME directories but thing could get lost
+* git worktree allows for multiple branches to be open at the same time from a single clone
+* Show it
+** 
+
+
+* Youtube tutorials:
+https://www.youtube.com/watch?v=4_p1OdLeDLE&t
