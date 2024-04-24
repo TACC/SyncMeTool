@@ -1,0 +1,4 @@
+SyncMeTool:
+    (1.1) * Improved SyncMeTool's README.md to discuss lua, luaposix install
+    (1.2) * Padded branch name so that the report lines up better.
+    

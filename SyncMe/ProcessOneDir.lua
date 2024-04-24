@@ -97,7 +97,8 @@ function M.process(self,dir)
          tbl[#tbl + 1] = { dir = display, msg = concat(a, "\n") , branch = branch}
       else
          self.addCR = true 
-         stdout:write(dbg.indent(),"[",vc_cmd,"]: On branch: ", branch,",\t in directory: ",display,"\n")
+         branch     = branch ..','.. string.rep(" ",10 - branch:len())
+         stdout:write(dbg.indent(),"[",vc_cmd,"]: On branch: ", branch,"\t in directory: ",display,"\n")
       end
    end
 
@@ -119,7 +120,8 @@ function M.report(self)
       local display = v.dir
       local msg     = v.msg
       local branch  = v.branch
-      stdout:write("[",vc_cmd,"]: On branch: ", branch,",\t in directory: ",display,"\n")
+      branch        = branch ..','.. string.rep(" ",10 - branch:len())
+      stdout:write("[",vc_cmd,"]: On branch: ", branch,"\t in directory: ",display,"\n")
       stdout:write(msg,"\n\n")
    end
    return status
