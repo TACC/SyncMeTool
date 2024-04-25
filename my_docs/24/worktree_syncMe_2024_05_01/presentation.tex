@@ -1,0 +1,72 @@
+\documentclass{beamer}
+
+% You can also use a 16:9 aspect ratio:
+%\documentclass[aspectratio=169]{beamer}
+\usetheme{TACC16}
+
+% It's possible to move the footer to the right:
+%\usetheme[rightfooter]{TACC16}
+
+%% page 
+%\begin{frame}{}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%\end{frame}
+%
+%% page 
+%\begin{frame}[fragile]
+%    \frametitle{}
+% {\tiny
+%    \begin{semiverbatim}
+%    \end{semiverbatim}
+%}
+%  \begin{itemize}
+%    \item
+%  \end{itemize}
+%
+%\end{frame}
+
+\begin{document}
+\title[SyncMe]{SyncMe and Git Worktrees}
+\author{Robert McLay} 
+\date{May 1 2024}
+
+% page 1
+\frame{\titlepage} 
+
+
+% page 2
+\begin{frame}{Outline}
+  \begin{itemize}
+    \item This talk is in two parts: SyncMe and Git Worktrees
+    \item Part 1: Help when you have too-many git repos
+    \item Part 2: Help whne you have more that one active branch
+  \end{itemize}
+\end{frame}
+
+% page 3
+\begin{frame}{Motivation for the syncMe tool }
+  \begin{itemize}
+    \item Too many repos: 28 on laptop and 22 on Frontera
+    \item Examples: my dotfiles (.up), Lmod and XALT
+    \item Hard to keep then all up-to-date
+    \item Result: syncMe in the SyncMeTool repo
+    \item https://github.com/TACC/SyncMeTool.git
+  \end{itemize}
+\end{frame}
+
+% page 4
+\begin{frame}{Install}
+  \begin{itemize}
+    \item See https://github.com/TACC/SyncMeTool.git for complete details
+    \item TLDR:
+    \item Install lua and luaposix if necessary
+    \item clone repo
+    \item Put SyncMeTool/bin in your \$PATH
+  \end{itemize}
+\end{frame}
+
+
+
+\end{document}
