@@ -57,6 +57,15 @@
 \end{frame}
 
 % page 4
+\begin{frame}{What does syncMe do?}
+  \begin{enumerate}
+    \item Uses \$SyncDirPath for were to look for git repos
+    \item Can report the status for all those directorys
+    \item Can do a pull on those directories.
+  \end{enumerate}
+\end{frame}
+
+% page 5
 \begin{frame}{Install}
   \begin{itemize}
     \item See https://github.com/TACC/SyncMeTool.git for complete details
@@ -66,6 +75,74 @@
     \item Put SyncMeTool/bin in your \$PATH
   \end{itemize}
 \end{frame}
+
+% page 6
+\begin{frame}{Usage: Specify where to look: \$SyncDirPath}
+  \begin{itemize}
+    \item Set \$SyncDirPath to be a list of directories to search for
+      ``.git``
+    \item Paths w/o a leading '/' are relative to \$HOME
+  \end{itemize}
+\end{frame}
+
+% page 7
+\begin{frame}{Usage: syncMe status or syncMe st}
+  \begin{itemize}
+    \item Loop over directories, search for ``.git'' directory or file
+    \item Runs git status in those directories
+    \item Removes unnecessary output
+    \item Those repos with necessary output are buffered and printed
+      at the end.
+  \end{itemize}
+\end{frame}
+
+% page 8
+\begin{frame}{Usage: syncMe pull or syncMe up}
+  \begin{itemize}
+    \item Loop over directories, search for ``.git'' directory or file
+    \item Runs git pull in those directories on origin
+    \item Removes unnecessary output
+    \item Those repos with necessary output are buffered and printed
+      at the end.
+  \end{itemize}
+\end{frame}
+
+
+% page 9
+\begin{frame}{Demo}
+  \begin{itemize}
+    \item Show this in practice.
+  \end{itemize}
+\end{frame}
+
+% page 10
+\begin{frame}{Part 2: Git Worktrees}
+  \begin{itemize}
+    \item Two projects: Lmod and XALT have more than one active branch
+    \item Switching branches in same directory tree ususlly unhelpful
+    \item Especially running tests in two different branches
+    \item Could use multiple clones, but I have lost track of them.
+  \end{itemize}
+\end{frame}
+
+% page 11
+\begin{frame}{What are git worktree?}
+  \begin{itemize}
+    \item They are part of git but not well known.
+    \item They allow for multiple source directories from one clone
+    \item You can leave branches in incomplete state and switch to a
+      different branch 
+    \item No need to use ``git stash``
+  \end{itemize}
+\end{frame}
+
+% page 12
+\begin{frame}{Demo}
+  \begin{itemize}
+    \item Show this in practice.
+  \end{itemize}
+\end{frame}
+
 
 
 

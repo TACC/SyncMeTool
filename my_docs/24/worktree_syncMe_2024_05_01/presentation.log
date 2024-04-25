@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.15.0 (TeX Live 2022)  (format=lualatex 2023.3.13)  24 APR 2024 21:43
+This is LuaHBTeX, Version 1.15.0 (TeX Live 2022)  (format=lualatex 2023.3.13)  25 APR 2024 07:09
  restricted system commands enabled.
 **presentation.tex
 (./presentation.tex
@@ -1550,6 +1550,22 @@ LaTeX Font Info:    Font shape `TU/LinBiolinum(0)/m/it' will be
 
 ] [4
 
+] [5
+
+] [6
+
+] [7
+
+] [8
+
+] [9
+
+] [10
+
+] [11
+
+] [12
+
 ]
 \tf@nav=\write6
 
@@ -1566,24 +1582,24 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 35071 strings out of 477785
- 100000,1144653 words of node,token memory allocated
- 3436 words of node memory still in use:
-   39 hlist, 7 vlist, 2 rule, 10 disc, 6 local_par, 10 math, 92 glue, 27 kern, 2
-5 penalty, 157 glyph, 83 attribute, 61 glue_spec, 83 attribute_list, 4 write, 30
- pdf_colorstack nodes
-   avail lists: 1:1,2:197,3:69,4:132,5:85,6:21,7:946,8:9,9:199,10:11,11:32
- 54424 multiletter control sequences out of 65536+600000
+ 35122 strings out of 477785
+ 125032,1373583 words of node,token memory allocated
+ 1368 words of node memory still in use:
+   18 hlist, 7 vlist, 2 rule, 1 disc, 2 local_par, 2 math, 32 glue, 7 kern, 12 p
+enalty, 26 glyph, 43 attribute, 61 glue_spec, 43 attribute_list, 4 write, 14 pdf
+_colorstack nodes
+   avail lists: 1:1,2:294,3:83,4:150,5:118,6:25,7:1178,8:9,9:220,10:12,11:59
+ 54459 multiletter control sequences out of 65536+600000
  90 fonts using 18345215 bytes
  128i,16n,152p,415b,613s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2022/texmf-dist/fonts/opentype/public/libertine/LinBiolinum_
 R.otf></usr/local/texlive/2022/texmf-dist/fonts/opentype/public/libertine/LinBio
 linum_RB.otf></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/sym
 bols/msam10.pfb>
-Output written on presentation.pdf (4 pages, 323917 bytes).
+Output written on presentation.pdf (12 pages, 332259 bytes).
 
-PDF statistics: 64 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
- 9 named destinations out of 1000 (max. 131072)
+PDF statistics: 122 PDF objects out of 1000 (max. 8388607)
+ 92 compressed objects within 1 object stream
+ 25 named destinations out of 1000 (max. 131072)
  16 words of extra memory for PDF output out of 10000 (max. 100000000)
 

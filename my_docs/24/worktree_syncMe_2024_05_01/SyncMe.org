@@ -33,5 +33,5 @@ could be a help
 ** syncMe loops over directories in order
 *** However any non-ignored output is saved to the end
 ** syncMe -D ...
-*** will show the buffered output
+*** wpill show the buffered output
 * Show it in action:
