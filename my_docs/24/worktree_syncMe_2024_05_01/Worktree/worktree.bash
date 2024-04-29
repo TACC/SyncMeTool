@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # -*- shell-script -*-
 SCRIPT_NAME="${BASH_SOURCE[0]:-${(%):-%x}}"
 SCRIPT_DIR=${SCRIPT_NAME%/*}
@@ -18,14 +18,14 @@ function colorMsg ()
   local colorName="$1"
   local str="$2"
   local NONE=$'\033[0m'
-  declare -A colorT=( ["BLACK"]=$'\033[1;30m'
-           ["RED"]=$'\033[1;31m'
-           ["GREEN"]=$'\033[1;32m'
-           ["YELLOW"]=$'\033[1;33m'
-           ["BLUE"]=$'\033[1;34m'
-           ["MAGENTA"]=$'\033[1;35m'
-           ["CYAN"]=$'\033[1;36m'
-           ["WHITE"]=$'\033[1;37m' )
+  declare -A colorT=( [BLACK]=$'\033[1;30m'
+           [RED]=$'\033[1;31m'
+           [GREEN]=$'\033[1;32m'
+           [YELLOW]=$'\033[1;33m'
+           [BLUE]=$'\033[1;34m'
+           [MAGENTA]=$'\033[1;35m'
+           [CYAN]=$'\033[1;36m'
+           [WHITE]=$'\033[1;37m' )
   local color="${colorT[$colorName]}"
   echo "${color}${str}${NONE}"
 }
