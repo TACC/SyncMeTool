@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 # -*- shell-script -*-
 SCRIPT_NAME="${BASH_SOURCE[0]:-${(%):-%x}}"
 SCRIPT_DIR=${SCRIPT_NAME%/*}
