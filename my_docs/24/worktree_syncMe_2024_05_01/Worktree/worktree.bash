@@ -25,7 +25,7 @@ runThis ()
 }
 
 echo
-echo "PWD: $PWD" ; # sleep 1
+colorMsg RED "PWD: $PWD" 
 runThis "git clone --bare git@github.com:TACC/Lmod.git bare.git"
 runThis "cd bare.git"
 
