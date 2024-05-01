@@ -9,16 +9,19 @@ This command is a combination of a shell script and a lua program.
 
 ## To install
 
-   1. Install lua and luaposix on your computer if they are not already
-      there.  On linux system they can be installed with your package
-      manager.  On a Mac, it a little more complicated. Please install
-      lua and luarocks via brew.  Then use luarocks to install luaposix:
+   1. Install lua, luaposix and luafilesystem on your computer if they
+      are not already there.  On linux system they can be installed 
+      with your package manager.  On a Mac, it a little more complicated. 
+      Please install lua and luarocks via brew.  Then use luarocks to install luaposix
+      and luafilesystem:
 
          % brew install lua
          
          % brew install luarocks
          
          % luarocks install luaposix
+
+         % luarocks install luafileystem
        
    2. Clone this repo.
    
