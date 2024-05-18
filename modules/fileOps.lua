@@ -37,15 +37,16 @@ local getenv    = os.getenv
 local TILDE     = getenv("HOME") or "~"
 local lfs       = require("lfs")
 local access    = posix.access
+local stat      = posix.stat
 local concatTbl = table.concat
 local dbg       = require("Dbg"):dbg()
 
 
-local function argsPack(...)
+local function l_argsPack(...)
    local argA = { n = select("#", ...), ...}
    return argA
 end
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack  -- luacheck: compat
+local pack        = (_VERSION == "Lua 5.1") and l_argsPack or table.pack  -- luacheck: compat
 --------------------------------------------------------------------------
 -- find the absolute path to an executable.
 -- @param exec Name of executable
@@ -124,13 +125,13 @@ end
 -- @param d A file path
 function isDir(d)
    if (d == nil) then return false end
-   local t = posix.stat(d,"type")
+   local t = stat(d,"type")
 
    -- If the file is a link then adding a '/' on the end
    -- seems to tell stat to resolve the link to its final link.
    if (t == "link") then
       d = d .. '/'
-      t = posix.stat(d,"type")
+      t = stat(d,"type")
    end
 
    local result = (t == "directory")
@@ -145,8 +146,20 @@ function isFile(fn)
    if (fn == nil) then return false end
    local t = posix.stat(fn,"type")
 
-   local result = ((t == "regular") or (t == "link"))
+   local result = t and t ~= "directory"
+   if (t == "link") then
+      result = realpath(fn)
+   end
+   return result
+end
 
+function exists(f)
+   if (f == nil) then return false end
+   local result = posix.stat(f,"type")
+
+   if (result == "link") then
+      result = realpath(f)
+   end
    return result
 end
 
@@ -318,7 +331,7 @@ end
 -- when following symlinks
 -- @return A absolute path.
 
-function abspath (path, localDir)
+local function l_abspath (path, localDir)
    if (path == nil) then return nil end
 
    local cwd = lfs.currentdir()
@@ -355,11 +368,19 @@ function abspath (path, localDir)
          lfs.chdir(cwd)
          return result
       end
-      result = abspath(rl, localDir)
+      result = l_abspath(rl, localDir)
    end
    lfs.chdir(cwd)
    return result
 end
+
+function realpath(path, localDir)
+   if (localDir or not posix.realpath) then
+      return l_abspath(path, localDir)
+   end
+   return posix.realpath(path)
+end
+
 
 --------------------------------------------------------------------------
 -- Remove leading and trail spaces and extra slashes.
@@ -367,16 +388,16 @@ end
 -- @return A clean canonical path.
 function path_regularize(value, full)
    if value == nil then return nil end
-   value = value:gsub("^%s+", "")
+   if (value == '') then
+      return value
+   end
+   local doubleSlash = value:find("[^/]//$")
+   value = value:gsub("^%s+", " ")
    value = value:gsub("%s+$", "")
    value = value:gsub("//+" , "/")
    value = value:gsub("/%./", "/")
    value = value:gsub("/$"  , "")
    value = value:gsub("^~"  , TILDE)
-   if (value == '') then
-      value = ' '
-      return value
-   end
    local a    = {}
    local aa   = {}
    for dir in value:split("/") do
@@ -425,5 +446,42 @@ function path_regularize(value, full)
 
    value = concatTbl(a,"/")
 
+   if (doubleSlash) then
+      value = value .. '//'
+   end
+
    return value
+end
+
+local function l_walk_dir(path)
+   local dirA  = {}
+   local fileA = {}
+   local attr = lfs.attributes(path)
+   if (attr and type(attr) == "table" and attr.mode == "directory" and
+       access(path,"x")) then
+      for file in lfs.dir(path) do
+         if ( file ~= '.' and file ~= '..') then
+            local fn   = pathJoin(path,file)
+            local mode = lfs.attributes(fn,'mode')
+            if (mode == 'directory') then
+               dirA[#dirA+1]   = file
+            else
+               fileA[#fileA+1] = file
+            end
+         end
+      end
+   end
+   return dirA, fileA
+end
+
+local function l_walker(root)
+   local dirA, fileA = l_walk_dir(root)
+   coroutine.yield(root,dirA,fileA)
+   for i = 1, #dirA do
+      l_walker(pathJoin(root,dirA[i]))
+   end
+end
+
+function dir_walk(path)
+   return coroutine.wrap(function () l_walker(path) end)
 end

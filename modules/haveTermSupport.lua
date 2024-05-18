@@ -1,9 +1,14 @@
---------------------------------------------------------------------------
--- These functions allow us to define or check a global variable
--- inside a function.
--- @module declare
+require("strict")
 
-------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Lmod License
+--------------------------------------------------------------------------
+--
+--  Lmod is licensed under the terms of the MIT license reproduced below.
+--  This means that Lmod is free software and can be used for both academic
+--  and commercial purposes at absolutely no cost.
+--
+--  ----------------------------------------------------------------------
 --
 --  Copyright (C) 2008-2018 Robert McLay
 --
@@ -29,24 +34,22 @@
 --
 --------------------------------------------------------------------------
 
+local term = nil
+if (pcall(require,"term")) then
+   term = require("term")
+end
+local s_init     = true
+local s_haveTerm = false
+local getenv     = os.getenv
+function haveTermSupport()
 
---------------------------------------------------------------------------
--- Declares a string whos value becomes a global variable.
--- @param name A string
--- @param initval initial value
-
-function declare(name, initval)
-   rawset(_G, name, initval or false)
+   if (s_init) then
+      s_init     = false
+      s_haveTerm = (term ~= nil)
+   end
+   return s_haveTerm
 end
 
---------------------------------------------------------------------------
--- Is the value of the string a global variable.
--- @param name A string.
-
-function isDefined(name)
-   return (rawget(_G, name) ~= nil)
-end
-
-function isNotDefined(name)
-   return (rawget(_G, name) == nil)
+function connected2Term()
+   return haveTermSupport() and getenv("TERM") and term.isatty(io.stderr)
 end

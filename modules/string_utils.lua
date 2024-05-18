@@ -6,7 +6,7 @@ require("strict")
 
 --------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -30,19 +30,24 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
+local isLua51   = _VERSION:match('5%.1$')
+local concatTbl = table.concat
 
 --------------------------------------------------------------------------
--- remove leading and trailing spaces.
--- @param self input string
+-- Convert a search string that may have special regular expression and
+-- quote them.  This is very useful when trying to match version numbers
+-- like "2.4-1" where you want "." and "-" to treated as normal characters
+-- and not regular expression ones.
+-- @param  self Input string.
+-- @return escaped string.
 
-function string.trim(self)
-   local ja = self:find("%S")
-   if (ja == nil) then
-      return ""
+function string.escape(self)
+   if (self == nil) then return nil end
+   local res = self:gsub('[%-%.%+%[%]%(%)%$%^%%%?%*]','%%%1')
+   if isLua51 then
+      res = res:gsub('%z','%%z')
    end
-   local  jb   = self:find("%s+$") or 0
-   local  self = self:sub(ja,jb-1)
-   return self
+   return res
 end
 
 --------------------------------------------------------------------------
@@ -54,14 +59,23 @@ end
 function string.split(self, pat)
    pat  = pat or "%s+"
    local st, g = 1, self:gmatch("()("..pat..")")
-   local function getter(self, segs, seps, sep, cap1, ...)
+   local function l_getter(myself, segs, seps, sep, cap1, ...)
       st = sep and seps + #sep
-      return self:sub(segs, (seps or 0) - 1), cap1 or sep, ...
+      return myself:sub(segs, (seps or 0) - 1), cap1 or sep, ...
    end
-   local function splitter(self)
-      if st then return getter(self, st, g()) end
+   local function l_splitter(myself)
+      if st then return l_getter(myself, st, g()) end
    end
-   return splitter, self
+   return l_splitter, self
+end
+
+function string.trim(self)
+   local ja = self:find("%S")
+   if (ja == nil) then
+      return ""
+   end
+   local  jb = self:find("%s+$") or 0
+   return self:sub(ja,jb-1)
 end
 
 --------------------------------------------------------------------------
@@ -88,8 +102,22 @@ end
 -- Wrap input string with double quotes
 -- @param  self Input string
 -- @return A string surrounded with double quotes internal double quotes backslashed
+-- @return A string where every special character is quoted
+function string.multiEscaped(self)
+   if (type(self) ~= 'string') then
+      self = tostring(self)
+   end
+   self = self:gsub("[? \\\t{}|<>!;#^$&*\"'`()~%[%]]","\\%1")
+   return self
+end
+
+-- [ - ]
+--------------------------------------------------------------------------
+-- Wrap input string with double quotes
+-- @param  self Input string
+-- @return A string surrounded with double quotes internal double quotes backslashed
 function string.doubleQuoteString(self)
-   if (type(self) ~= 'string') then 
+   if (type(self) ~= 'string') then
       self = tostring(self)
    else
       self = ('%q'):format(self)
@@ -105,24 +133,6 @@ function string.atSymbolEscaped(self)
    if (self == nil) then return self end
    self = self:gsub('@','\\@')
    return self
-end
-
-isLua51 = _VERSION:match('5%.1$')
-
---------------------------------------------------------------------------
--- Convert a search string that may have special regular expression and
--- quote them.  This is very useful when trying to match version numbers
--- like "2.4-1" where you want "." and "-" to treated as normal characters
--- and not regular expression ones.
--- @param  self Input string.
--- @return escaped string.
-function string.escape(self)
-   if (self == nil) then return nil end
-   local res = self:gsub('[%-%.%+%[%]%(%)%$%^%%%?%*]','%%%1')
-   if isLua51 then
-      res = res:gsub('%z','%%z')
-   end
-   return res
 end
 
 --------------------------------------------------------------------------

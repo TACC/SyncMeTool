@@ -6,7 +6,7 @@ require("strict")
 
 ------------------------------------------------------------------------
 --
---  Copyright (C) 2008-2014 Robert McLay
+--  Copyright (C) 2008-2018 Robert McLay
 --
 --  Permission is hereby granted, free of charge, to any person obtaining
 --  a copy of this software and associated documentation files (the
@@ -30,19 +30,20 @@ require("strict")
 --
 --------------------------------------------------------------------------
 
-local function argsPack(...)
-   local arg = { n = select ("#", ...), ...}
-   return arg
+local function l_argsPack(...)
+   local argA = { n = select("#", ...), ...}
+   return argA
 end
-local pack        = (_VERSION == "Lua 5.1") and argsPack or table.pack
+local pack        = (_VERSION == "Lua 5.1") and l_argsPack or table.pack -- luacheck: compat
+local ProgName    = ""
 
 --------------------------------------------------------------------------
 -- Error routine for when option parsing fails
 function Optiks_Error(...)
    io.stderr:write("\n",ProgName,"Error: ")
-   local arg = pack(...)
-   for i = 1, arg.n do
-      io.stderr:write(arg[i])
+   local argA = pack(...)
+   for i = 1, argA.n do
+      io.stderr:write(argA[i])
    end
    io.stderr:write("\n")
    os.exit(1)
@@ -61,7 +62,6 @@ local BeautifulTbl = require("BeautifulTbl")
 local Error        = Optiks_Error
 local Exit         = Optiks_Exit
 local Option       = require("Optiks_Option")
-local ProgName     = ""
 local arg          = arg
 local concatTbl    = table.concat
 local io           = io
@@ -69,7 +69,6 @@ local ipairs       = ipairs
 local os           = os
 local pairs        = pairs
 local print        = print
-local require      = require
 local require      = require
 local setmetatable = setmetatable
 local systemG      = _G
@@ -79,14 +78,12 @@ local tostring     = tostring
 local type         = type
 local stdout       = io.stdout
 
-local function Prt(...)
+local function l_prt(...)
    stdout:write(...)
 end
 
-local function PrtEnd()
+local function l_prtend()
 end
-
-icnt = 0
 
 --------------------------------------------------------------------------
 -- Ctor for option parsing class.
@@ -109,8 +106,8 @@ function M.new(self, t)
       envArg   = t.envArg
 
       Error    = t.error or Error
-      Prt      = t.prt or Prt
-      PrtEnd   = t.prtEnd or PrtEnd
+      l_prt    = t.prt or l_prt
+      l_prtend = t.prtEnd or l_prtend
       Exit     = t.exit or Exit
    end
 
@@ -121,8 +118,8 @@ function M.new(self, t)
    end
 
    o.exit     = Exit
-   o.prt      = Prt
-   o.prtEnd   = PrtEnd
+   o.prt      = l_prt
+   o.prtEnd   = l_prtend
    o.usage    = usage
    o.version  = version
    o.envArg   = envArg
@@ -204,7 +201,7 @@ function M._getValue(self, eq_arg, argIn, o, optName)
 end
 
 --------------------------------------------------------------------------
--- Store the value from command line 
+-- Store the value from command line
 -- @param self Optiks object
 -- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
 -- @param argIn The current list of command line arguments
@@ -217,7 +214,7 @@ function M.store(self, eq_arg, argIn, argTbl, o, optName)
 end
 
 --------------------------------------------------------------------------
--- Store true from command line 
+-- Store true from command line
 -- @param self Optiks object
 -- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
 -- @param argIn The current list of command line arguments
@@ -247,7 +244,7 @@ function M.append(self, eq_arg, argIn, argTbl, o, optName)
 end
 
 --------------------------------------------------------------------------
--- Store false from command line 
+-- Store false from command line
 -- @param self Optiks object
 -- @param eq_arg The equal arg. (i.e. --foo=eq\_arg)
 -- @param argIn The current list of command line arguments
@@ -316,7 +313,7 @@ function M.display_count(self, opt)
 end
 
 --------------------------------------------------------------------------
--- Set the defaults for 
+-- Set the defaults for
 -- @param self Optiks object.
 -- @param argTbl The table results of parsing the command line.
 function M.setDefaults(self, argTbl)
@@ -392,7 +389,7 @@ function M.parseEnvArg(self)
    local idx    = 1
    local len    = optStr:len()
    local i, j, k, q, c
-   
+
    while (not done) do
       while (true) do
          -- remove leading spaces
@@ -474,7 +471,7 @@ function M.parse(self, argIn)
       local key = argA[1]
       table.remove(argA,1)
       -------------------------------------------------------------------
-      -- split any single letter options grouped together.  So "-tdw=60" 
+      -- split any single letter options grouped together.  So "-tdw=60"
       -- becomes: "-t -d -w=60"
       if (not noProcess and key:find("^%-%w+")) then
          local a       = {}
