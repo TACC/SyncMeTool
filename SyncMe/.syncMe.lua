@@ -94,6 +94,9 @@ cmdT = {
                         "X11 forwarding request failed on channel 0",
                         "X   ",
                         "^SSH: Server",
+                        "It took",
+                        "may speed it up, but you have to be careful not to forget to add",
+                        "new files yourself (see 'git help status')."
                      }
                      for _, v in ipairs(filterA) do
                         if (line:find(v)) then
