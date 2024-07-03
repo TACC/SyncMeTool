@@ -7,6 +7,18 @@ all:
 	@echo "does nothing"
 
 
+tags: build_tags
+	$(RM) file_list.*
+
+build_tags:
+	find . \( -regex '.*~$$\|.*/\.git\|.*/\.git/' -prune \)  \
+	       -o -type f > file_list.1.txt
+	sed -e 's|.*/.git.*||g'                                  \
+	    -e 's|./file_list\..*||g'                            \
+	    -e '/^\s*$$/d'                                       \
+	       < file_list.1.txt > file_list.2.txt
+	etags `cat file_list.2.txt`
+
 gittag:
         ifneq ($(TAG),)
 	  @git status -s > /tmp/git_st_$$$$                                               ; \
