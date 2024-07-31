@@ -160,7 +160,6 @@ function main()
 
    ----------------------------------------
    -- Save config file
-   print("size:" , Config.get_size(config))
    Config.save(config)
 
    dbg.fini()
