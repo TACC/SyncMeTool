@@ -40,9 +40,7 @@ function M.get_size(self)
    return self.__size
 end
 function M.set_size_max(self, size)
-   
    self.__size = max(self.__size, size)
-   
 end
 
 function M.save(self)
