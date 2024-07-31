@@ -11,6 +11,7 @@ fileA=(
           declare.lua
           fileOps.lua
           haveTermSupport.lua
+          pairsByKeys.lua
           serializeTbl.lua
           strict.lua
           string_utils.lua
