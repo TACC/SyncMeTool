@@ -32,6 +32,7 @@ function M.new(self)
    assert(load(whole))()
 
    o.__size = SyncMeTool.size
+   o.__Tstr = serializeTbl{name="SyncMeTool", value = SyncMeTool, indent = true}
    return o
 end
 
@@ -52,13 +53,15 @@ function M.save(self)
    if (not homeDir) then return end
    mkdir_recursive(pathJoin(homeDir,configDir))
 
-   local fn      = pathJoin(homeDir,configDir,configFn)
-   local f       = io.open(fn,"w")
-   if (f) then
-      local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
-      local s1 = serializeTbl{name="SyncMeTool", value = SyncMeTool, indent = true}
-      f:write(s0,s1)
-      f:close()
+   local s0 = "-- Date: " .. os.date("%c",os.time()) .. "\n"
+   local s1 = serializeTbl{name="SyncMeTool", value = SyncMeTool, indent = true}
+   if (s1 ~= self.__Tstr) then
+      local fn      = pathJoin(homeDir,configDir,configFn)
+      local f       = io.open(fn,"w")
+      if (f) then
+         f:write(s0,s1)
+         f:close()
+      end
    end
 end
 
