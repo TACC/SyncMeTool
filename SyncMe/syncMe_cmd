@@ -34,6 +34,7 @@ require("string_utils")
 require("capture")
 require("findVCDir")
 local CmdLineOptions = require("CmdLineOptions")
+local Config         = require("Config")
 local ProcessOneDir  = require("ProcessOneDir")
 local Version        = require("Version")
 local concatTbl      = table.concat
@@ -100,10 +101,14 @@ function main()
    end
 
    ----------------------------------------
+   -- Load config file
+   local config = Config:new()
+   dbg.printT("config",config)
+
+   ----------------------------------------
    -- Form process object.
 
-   local processOneDir = ProcessOneDir:processOneDir(cmd or "st")
-
+   local processOneDir = ProcessOneDir:processOneDir(cmd or "st",config)
 
    ----------------------------------------
    -- Form a unique list of directories
@@ -152,6 +157,11 @@ function main()
    ----------------------------------------
    -- Report results
    local status = processOneDir:report()
+
+   ----------------------------------------
+   -- Save config file
+   print("size:" , Config.get_size(config))
+   Config.save(config)
 
    dbg.fini()
    os.exit(status)

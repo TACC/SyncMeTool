@@ -1,5 +1,3 @@
--- $Id$ --
-ProcessOneDir = { }
 _DEBUG        = false
 local posix   = require("posix")
 
@@ -12,17 +10,19 @@ local dbg     = require("Dbg"):dbg()
 local access  = posix.access
 local chdir   = posix.chdir
 local concat  = table.concat
+local Config  = require("Config")
 local getcwd  = posix.getcwd
 local getenv  = os.getenv
+local max     = math.max
+local load    = (_VERSION == "Lua 5.1") and loadstring or load
 local stdout  = io.stdout
 local systemG = _G
-local load    = (_VERSION == "Lua 5.1") and loadstring or load
 
 local M = {}
 
 s_processOneDir = {}
 
-local function new(self, cmd)
+local function new(self, cmd, config)
    local o = {}
 
    setmetatable(o,self)
@@ -31,6 +31,7 @@ local function new(self, cmd)
    o.tbl         = {}
    o.addCR       = false
    o.cmdT        = {}
+   o.config      = config
 
    local homeDir = getenv("HOME") or ""
 
@@ -55,14 +56,14 @@ local function new(self, cmd)
    return o
 end
 
-function M.processOneDir(self, cmd)
+function M.processOneDir(self, cmd, config)
    if (next(s_processOneDir) == nil) then
-      s_processOneDir = new(self, cmd)
+      s_processOneDir = new(self, cmd, config)
    end
    return s_processOneDir
 end
 
-function M.process(self,dir)
+function M.process(self, dir)
    dbg.start{"ProcessOneDir:process"}
    local display
 
@@ -72,6 +73,7 @@ function M.process(self,dir)
    local wd     = getcwd()
    local cmdT   = self.cmdT
    local vc_cmd = self.vc_cmd
+   local sz     = Config.get_size(self.config)
    
    chdir(dir)
 
@@ -92,13 +94,15 @@ function M.process(self,dir)
          filter(s,a)
       end
       
+      Config.set_size_max(self.config, branch:len())
+
       if (#a > 0) then
          local tbl = self.tbl
          tbl[#tbl + 1] = { dir = display, msg = concat(a, "\n") , branch = branch}
       else
          self.addCR = true 
-         branch     = branch ..','.. string.rep(" ",10 - branch:len())
-         stdout:write(dbg.indent(),"[",vc_cmd,"]: On branch: ", branch,"\t in directory: ",display,"\n")
+         branch     = branch ..','.. string.rep(" ",sz - branch:len())
+         stdout:write(dbg.indent(),"[",vc_cmd,"]: On branch: ", branch," in directory: ",display,"\n")
       end
    end
 
@@ -110,6 +114,7 @@ function M.report(self)
    local tbl    = self.tbl
    local vc_cmd = self.vc_cmd
    local status = 0
+   local sz     = Config.get_size(self.config)
 
    if (#tbl > 0 and self.addCR) then
       stdout:write("\n")
@@ -120,8 +125,8 @@ function M.report(self)
       local display = v.dir
       local msg     = v.msg
       local branch  = v.branch
-      branch        = branch ..','.. string.rep(" ",10 - branch:len())
-      stdout:write("[",vc_cmd,"]: On branch: ", branch,"\t in directory: ",display,"\n")
+      branch        = branch ..','.. string.rep(" ",sz - branch:len())
+      stdout:write("[",vc_cmd,"]: On branch: ", branch," in directory: ",display,"\n")
       stdout:write(msg,"\n\n")
    end
    return status
