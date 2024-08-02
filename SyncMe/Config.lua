@@ -16,7 +16,8 @@ local M = {}
 function M.new(self)
    local o = {}
    setmetatable(o,self)
-   o.__size = 4
+   o.__size      = 4
+   o.__currentSz = 0
 
    local homeDir = getenv("HOME") or ""
 
@@ -40,12 +41,13 @@ function M.get_size(self)
    return self.__size
 end
 function M.set_size_max(self, size)
-   self.__size = max(self.__size, size)
+   self.__size      = max(self.__size,      size)
+   self.__currentSz = max(self.__currentSz, size)
 end
 
 function M.save(self)
    local SyncMeTool = {}
-   SyncMeTool.size = self.__size
+   SyncMeTool.size = self.__currentSz
 
    local homeDir = getenv("HOME")
    if (not homeDir) then return end
