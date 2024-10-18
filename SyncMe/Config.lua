@@ -16,6 +16,8 @@ local M = {}
 function M.new(self)
    local o = {}
    setmetatable(o,self)
+   self.__index  = self
+   
    o.__size      = 4
    o.__currentSz = 0
 

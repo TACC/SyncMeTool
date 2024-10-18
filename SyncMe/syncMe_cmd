@@ -160,7 +160,7 @@ function main()
 
    ----------------------------------------
    -- Save config file
-   Config.save(config)
+   config:save()
 
    dbg.fini()
    os.exit(status)

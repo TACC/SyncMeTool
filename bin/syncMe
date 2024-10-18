@@ -3,7 +3,7 @@
 SCRIPT_NAME="${BASH_SOURCE[0]:-${(%):-%x}}"
 SCRIPT_DIR=${SCRIPT_NAME%/*}
 if [ "$SCRIPT_DIR" = "." ]; then
-  $SCRIPT_DIR=$PWD
+  SCRIPT_DIR=$PWD
 fi  
 export PATH=$SCRIPT_DIR/../SyncMe:$PATH
 
