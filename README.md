@@ -10,7 +10,7 @@ This command is a combination of a shell script and a lua program.
 ## To install
 
    1. Install lua, luaposix and luafilesystem on your computer if they
-      are not already there.  On linux system they can be installed 
+      are not already there.  On Linux system they can be installed 
       with your package manager.  On a Mac, it a little more complicated. 
       Please install lua and luarocks via brew.  Then use luarocks to install luaposix
       and luafilesystem:
@@ -90,7 +90,7 @@ When leaving for the day, you should run:
     % syncMe status
     
 to make sure that all local repos are up-to-date and that there are no
-uncommited files.  You'll have to commit any changes or push to
+uncommitted files.  You'll have to commit any changes or push to
 ``origin`` manually. 
 
 ## Important output reported last
