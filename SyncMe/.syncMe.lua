@@ -62,8 +62,8 @@ cmdT = {
                  cmdStr      = gitTranslateT[cmdStr]
                  if (cmdStr == "pull" or cmdStr == "up" or cmdStr == "update" and branch ~= "master" ) then
                     extra = " origin ".. branch .. " "
-                 elseif (cmdStr == "status") then
-                    extra = " -uno"
+                 --elseif (cmdStr == "status") then
+                 --   extra = " -uno"
                  end
                  if (cmdStr) then
                     local cmd = "git " .. cmdStr .. extra .. " 2>&1"
